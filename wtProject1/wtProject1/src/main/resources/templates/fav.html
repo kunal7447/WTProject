@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorites</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Favorite Magazines</h1>
+    <div class="row">
+        <!-- Iterate over the list of ImageData objects -->
+        <div class="col-md-4 mb-3" th:each="imageData : ${imageDataList}">
+            <div class="card">
+                <div class="card-body">
+                    <p th:text="${imageData.id}"></p>
+                    <p th:text="${imageData.name}"></p>
+                    <a th:href="'http://localhost:9191/image/' + ${imageData.name} + '/'" class="btn btn-primary">Download</a>
+                    <!-- Add more attributes as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add back button -->
+    <div class="mt-4">
+        <a href="/image/input" class="btn btn-secondary">Back to Input</a>
+    </div>
+</div>
+</body>
+</html>

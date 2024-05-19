@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="" th:href="@{/style.css}"/>
+    <style>
+        .search-container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            z-index: 1 !important;
+        }
+
+        h1 {
+            color: blue;
+            z-index: -1 !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Search Magazines</h1>
+            <div class="search-container">
+                <input onkeyup="search()" id="search-input" type="text" class="form-control"
+                       placeholder="Search your magazine">
+                <!--Search result goes here-->
+                <div class="search-result"></div>
+            </div>
+            <form action="/image/language" method="post">
+                <div class="form-group">
+                    <label for="language">Select your regional language:</label>
+                    <select id="language" name="language" class="form-control">
+                        <option value="hindi">Hindi</option>
+                        <option value="bengali">Bengali</option>
+                        <option value="telugu">Telugu</option>
+                        <option value="tamil">Tamil</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">set the language</button>
+            </form>
+        </div>
+    </div>
+    <form th:action="@{/image/favt}" method="POST" class="mt-2">
+        <button type="submit" class="btn btn-primary">Favourites</button>
+    </form>
+
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h1>Download Files</h1>
+            <div class="row">
+                <div th:each="imageData : ${imageDataList}" class="col-md-4">
+                    <!-- Print each imageData -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+
+                            <p th:text="${imageData.name}"></p>
+                            <a th:href="'http://localhost:9191/image/' + ${imageData.name} + '/'" class="btn btn-primary">Download</a>
+                            <form th:action="@{/image/gett}" method="GET">
+
+                                <input type="hidden" name="id" th:value="${imageData.id}" />
+                                <button type="submit" class="btn btn-secondary">Add to myList</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Add more fields as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>File Upload</h1>
+            <form th:action="@{/image/uploaded}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="image" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h1>Set Language of File</h1>
+            <form th:action="@{/image/get-lang}" method="POST">
+                <div class="form-group">
+                    <label for="lang111">Select your regional language:</label>
+                    <select id="lang111" name="lang111" class="form-control">
+                        <option value="hindi">Hindi</option>
+                        <option value="bengali">Bengali</option>
+                        <option value="telugu">Telugu</option>
+                        <option value="tamil">Tamil</option>
+                    </select>
+
+                <button type="submit" class="btn btn-primary">Set Language</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="" th:src="@{/index.js}"></script>
+</body>
+</html>
